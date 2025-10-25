@@ -1,0 +1,28 @@
+{
+  "name": "luxury-ecommerce",
+  "version": "1.0.0",
+  "description": "Full-stack MERN E-commerce Application",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "cd frontend && npm run dev",
+    "server": "cd backend && npm run dev",
+    "install:client": "cd frontend && npm install",
+    "install:server": "cd backend && npm install",
+    "install:all": "npm install && npm run install:client && npm run install:server",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "keywords": [
+    "ecommerce",
+    "mern",
+    "react",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

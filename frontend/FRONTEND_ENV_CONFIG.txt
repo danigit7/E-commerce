@@ -1,0 +1,4 @@
+# Frontend Environment Configuration for .env file
+# Copy this line to your frontend/.env file
+
+VITE_API_URL=http://localhost:5000/api
