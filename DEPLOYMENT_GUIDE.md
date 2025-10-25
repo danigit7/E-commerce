@@ -36,7 +36,7 @@ This guide covers deployment to various platforms including Vercel, Render, Rail
 
 Example:
 ```
-mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/luxury-ecommerce?retryWrites=true&w=majority
+mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database?retryWrites=true&w=majority
 ```
 
 ### 2. Cloudinary Setup

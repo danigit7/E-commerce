@@ -63,7 +63,7 @@ All routes are prefixed with `/api`:
 MONGO_URI=mongodb://localhost:27017/ecommerce
 
 // Or MongoDB Atlas:
-MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/ecommerce
+MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database
 ```
 
 ---
