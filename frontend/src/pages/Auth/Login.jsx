@@ -130,15 +130,6 @@ function Login() {
             </Link>
           </p>
         </div>
-
-        {/* Demo Credentials */}
-        <div className="mt-6 p-4 bg-gray-50 border border-gray-200 text-sm">
-          <p className="font-medium mb-2 text-black">Demo Credentials:</p>
-          <p className="text-gray-600">
-            Admin: admin@luxurystore.com / Admin@123456
-          </p>
-          <p className="text-gray-600">User: john@example.com / Password123</p>
-        </div>
       </motion.div>
     </div>
   );
