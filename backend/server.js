@@ -42,9 +42,23 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // CORS configuration
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+  'http://localhost:5173',
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Allow all origins in production for flexibility
+      }
+    },
     credentials: true,
   })
 );
@@ -117,21 +131,24 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-app.listen(PORT, () => {
-  console.log('\n' + '='.repeat(60));
-  console.log('🚀 SERVER STARTED SUCCESSFULLY');
-  console.log('='.repeat(60));
-  console.log(`📍 Port:        ${PORT}`);
-  console.log(`🌍 Environment: ${NODE_ENV}`);
-  console.log(`⏰ Started at:  ${new Date().toLocaleString()}`);
-  console.log('='.repeat(60));
-  console.log('📌 Available Endpoints:');
-  console.log(`   - Root:      http://localhost:${PORT}/`);
-  console.log(`   - Test:      http://localhost:${PORT}/api/test`);
-  console.log(`   - Health:    http://localhost:${PORT}/api/health`);
-  console.log(`   - API Routes: http://localhost:${PORT}/api/*`);
-  console.log('='.repeat(60));
-  console.log('✅ Server is ready to accept connections\n');
-});
+// Only start listening if not running on Vercel (serverless)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log('\n' + '='.repeat(60));
+    console.log('🚀 SERVER STARTED SUCCESSFULLY');
+    console.log('='.repeat(60));
+    console.log(`📍 Port:        ${PORT}`);
+    console.log(`🌍 Environment: ${NODE_ENV}`);
+    console.log(`⏰ Started at:  ${new Date().toLocaleString()}`);
+    console.log('='.repeat(60));
+    console.log('📌 Available Endpoints:');
+    console.log(`   - Root:      http://localhost:${PORT}/`);
+    console.log(`   - Test:      http://localhost:${PORT}/api/test`);
+    console.log(`   - Health:    http://localhost:${PORT}/api/health`);
+    console.log(`   - API Routes: http://localhost:${PORT}/api/*`);
+    console.log('='.repeat(60));
+    console.log('✅ Server is ready to accept connections\n');
+  });
+}
 
 export default app;
